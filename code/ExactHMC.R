@@ -3,11 +3,7 @@
 # g: m x 1 vector
 rm(list=ls())
 
-Fmat1 = matrix(c(1,0,0,1, -1, 1, 1.1, -1), byrow = TRUE, ncol = 2)
-Fmat2 = matrix(c(1,0,0,1), byrow = TRUE, ncol = 2)
-
-
-Fmat = Fmat1
+Fmat = matrix(c(1,0,0,1, -1, 1, 1.1, -1), byrow = TRUE, ncol = 2)
 m = nrow(Fmat)
 d = ncol(Fmat)
 g = matrix(rep(0, m), ncol = 1)
@@ -34,8 +30,10 @@ initial_X = solve(t(R), initial_X)
 
 
 # verify that X is feasible
-c = (Fmat %*% initial_X) + g
-any(c<0)
+# c = (Fmat %*% initial_X) + g
+# any(c<0)
+
+
 
 # assign last_X as the last X value (initial_X)
 last_X = initial_X
@@ -59,7 +57,7 @@ while(ncol(Xs) < L){
   X = last_X
   
   # set max travel time and restart traveling time
-  max_T = pi/2
+  max_T = pi
   tt = 0
   
   # indicates which wall the particle hits
@@ -69,6 +67,7 @@ while(ncol(Xs) < L){
   stop_t = 0 # stopping condition for particle
   
   # loop to sample 1 value
+  nbounce = 0
   while(1){
     # set values of initial conditions a and b
     # a and b can be results from a bounce
@@ -79,7 +78,10 @@ while(ncol(Xs) < L){
     fa = Fmat%*%a
     fb = Fmat%*%b
     
-    U = sqrt(fa^2 + fb^2)
+    sign_fb = sign(fb)
+    sign_fb[which(sign_fb == 0)] = 1
+    
+    U = sign_fb*sqrt(fa^2 + fb^2)
     phi = atan(-fa/fb)
     
     # find wall(s) that may be hit
@@ -90,6 +92,14 @@ while(ncol(Xs) < L){
       inds = which(pn) # indices of constraint that wil be hit
       # find t which the particle hits the wall
       t_hit = -phi[pn] + acos(-g[pn]/U[pn])
+      
+      if (h>0){
+        if (pn[h] == 1){
+          cs = cumsum(pn)
+          indj = cs[h]
+          tt1 = t_hit[indj]
+        }
+      }
       
       mt = min(t_hit) # (smallest) moving time
       h = inds[which.min(t_hit)] # which constraint is mt
@@ -120,6 +130,8 @@ while(ncol(Xs) < L){
     alpha_h = as.vector((Fmat[h,] %*% V)/sum(Fmat[h,]^2))
     F_h = matrix(Fmat[h,], ncol = 1)
     V0 = V - 2*alpha_h*F_h
+    
+    nbounce = nbounce + 1
   }
   
   # check if all constraints are satisfied
@@ -168,5 +180,5 @@ plot(Xs[1,], Xs[2,], cex = 0.5,
 
 
 
-# saveRDS(Xs, file = "x_EHMC.rds")
-# saveRDS(iter_times, file = "t_EHMC.rds")
+saveRDS(Xs, file = "../report/x_EHMC_maxt_3pi4.rds")
+saveRDS(iter_times, file = "../report/t_EHMC_maxt_3pi4.rds")
