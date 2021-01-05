@@ -18,6 +18,9 @@ r = M %*% mu
 
 initial_X = matrix(c(2, 2.1), ncol = 1)
 
+# set max travel time
+max_T = pi/2
+
 
 ######## transform to whitened frame ########
 # translate X and g by mu
@@ -33,6 +36,7 @@ initial_X = solve(t(R), initial_X)
 # c = (Fmat %*% initial_X) + g
 # any(c<0)
 
+nearzero = 1e-10
 
 
 # assign last_X as the last X value (initial_X)
@@ -56,8 +60,8 @@ while(ncol(Xs) < L){
   # use the last X as initial X
   X = last_X
   
-  # set max travel time and restart traveling time
-  max_T = pi
+  # restart traveling time
+  
   tt = 0
   
   # indicates which wall the particle hits
@@ -98,6 +102,9 @@ while(ncol(Xs) < L){
           cs = cumsum(pn)
           indj = cs[h]
           tt1 = t_hit[indj]
+          if (is.nan(tt1)){
+            t_hit[indj] = Inf
+          }
         }
       }
       
@@ -156,29 +163,11 @@ while(ncol(Xs) < L){
 Xs = t(R) %*% Xs + matrix(mu, nrow = length(mu), ncol = L)
 
 
-
-{
 plot(Xs[1,], Xs[2,], cex = 0.5,
      xlab = "X1", ylab = "X2",
      xlim = c(1.5,6.5), ylim = c(1.5,6.5),
      main = "Exact HMC")
-#abline(h=0)
-#abline(v=0)
-}
-
-# moments of predicted distributions
-# predicted means
-# rowMeans(Xs)
-# 
-# # predicted cov
-# cov(t(Xs))
-# 
-# # theoretical moments
-# tmvtnorm::mtmvnorm(mean = as.vector(mu),
-#                    lower = c(0,0), upper = c(Inf, Inf),
-#                    sigma = Sigma)
 
 
-
-saveRDS(Xs, file = "../report/x_EHMC_maxt_3pi4.rds")
-saveRDS(iter_times, file = "../report/t_EHMC_maxt_3pi4.rds")
+saveRDS(Xs, file = "../report/x_EHMC.rds")
+saveRDS(iter_times, file = "../report/t_EHMC.rds")

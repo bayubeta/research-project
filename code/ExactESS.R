@@ -5,9 +5,9 @@ library(rootSolve)
 rm(list=ls())
 
 mu = matrix(c(4,4), ncol = 1)
-Sigma = matrix(c(1,0.75,0.75,1), ncol=2)
+Sigma = matrix(c(1,0,0,1), ncol=2)
 N = 1000
-J = 5
+J = 1
 Fmat = matrix(c(1,0,0,1, -1, 1, 1.1, -1), byrow = TRUE, ncol = 2)
 
 m = nrow(Fmat)
@@ -174,7 +174,7 @@ iter_times = c()
 set.seed(12345)
 
 # begin loop:
-while(ncol(Xs)<N){
+while(ncol(Xs)<=N){
   ######### start time #########
   start.time = Sys.time()
   ##############################
@@ -208,14 +208,23 @@ while(ncol(Xs)<N){
   
   # check if satisfy constraints
   if (all(Fmat %*% new_Xs + matrix(g, nrow = length(g), ncol = J) > 0)){
-    # random shuffle new_Xs
-    ind = sample(1:J, J)
-    newXs_randperm = new_Xs[,ind]
+    if (J>1){
+      # random shuffle new_Xs
+      ind = sample(1:J, J)
+      newXs_randperm = new_Xs[,ind]
+      
+      # append new X value
+      Xs = cbind(Xs, newXs_randperm)
+      # set the last element as last_X
+      last_X = as.matrix(newXs_randperm[,J])
+    }
+    else{
+      # append new X value
+      Xs = cbind(Xs, x_prime)
+      # set the last element as last_X
+      last_X = as.matrix(x_prime)
+    }
     
-    # append new X value
-    Xs = cbind(Xs, newXs_randperm)
-    # set the last element as last_X
-    last_X = as.matrix(newXs_randperm[,J])
     if ((ncol(Xs)-1)%%100 == 0){
       cat("sample no:", ncol(Xs)-1,"\n")
     }
@@ -239,16 +248,5 @@ plot(Xs[1,], Xs[2,], cex = 0.5,
      main = "Exact ESS")
 
 
-# moments of predicted distributions
-# predicted means
-# rowMeans(Xs)
-# 
-# # predicted cov
-# cov(t(Xs))
-# 
-# # theoretical moments
-# tmvtnorm::mtmvnorm(mean = as.vector(mu),
-#                    lower = c(0,0), upper = c(Inf, Inf),
-#                    sigma = Sigma)
-
-#save(Xs, file = "x_ESS.RData")
+saveRDS(Xs, file = "../report/x_EESS_J_1.rds")
+saveRDS(iter_times, file = "../report/t_EESS_J_1.rds")
