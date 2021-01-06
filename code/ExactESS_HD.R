@@ -4,22 +4,25 @@ library(rootSolve)
 
 rm(list=ls())
 
-Fmat = diag(2)
+lb = rep(-1, 10)
+ub = rep(1, 10)
+d = length(lb)
+
+Fmat = rbind(diag(1,d), diag(-1,d))
+g = matrix(c(-lb,ub), ncol = 1)
+
 m = nrow(Fmat)
-d = ncol(Fmat)
-g = matrix(rep(0, m), ncol = 1)
+M = diag(d)
+
+mu = matrix(rep(0,d), ncol = 1)
+
+Sigma = matrix(rep(0.8, d*d), ncol = d, nrow = d)
+diag(Sigma) = rep(1, d)
 
 N = 1000
 J = 5
 
-mu = matrix(rep(1.5,d), ncol = 1)
-
-Sigma = matrix(rep(0.75, d*d), ncol = d, nrow = d)
-diag(Sigma) = rep(1, d)
-
-
-initial_X = matrix(rep(2, d), ncol = 1)
-
+initial_X = matrix(rep(0.5, d), ncol = 1)
 
 ######### transform to whitened frame ########
 initial_X = initial_X - mu
@@ -247,15 +250,18 @@ Xs = Xs[,-1]
 Xs = t(R)%*%Xs + matrix(mu, nrow = length(mu), ncol = N)
 
 {
-  plot(Xs[1,], Xs[2,], cex = 0.5,
+  plot(Xs[1,], Xs[3,], cex = 0.5,
        xlab = "X1", ylab = "X2",
-       xlim = c(-1.5,5.5), ylim = c(-1.5,5.5),
-       main = "Exact ESS")
-  abline(h=0)
-  abline(v=0)
+       xlim = c(-1.5,1.5), ylim = c(-1.5,1.5),
+       main = "Exact HMC")
+  abline(v=-1)
+  abline(v=1)
+  abline(h=-1)
+  abline(h=1)
 }
 
-plot(Xs[1,], type = "l", ylim = c(0,6))
 
-# saveRDS(Xs, file = "../report/x_EESS_HD_J5.rds")
-# saveRDS(iter_times, file = "../report/t_EESS_HD_J5.rds")
+plot(Xs[1,1:1000], type = "l", ylim = c(-2,2))
+
+saveRDS(Xs, file = "../report/x_EESS_HD_J5.rds")
+saveRDS(iter_times, file = "../report/t_EESS_HD_J5.rds")
