@@ -1,0 +1,93 @@
+---
+title: "Comparing Hamiltonian Monte Carlo and Elliptical Slice Sampling for constrained Gaussian distributions"
+subtitle: "732A76 Research Project Report"
+author: "Bayu Brahmantio (baybr878)"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output: pdf_document
+---
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 8)
+library(knitr)
+library(stats)
+```
+
+# 1. Background  
+
+
+
+
+
+# Results from research project:
+
+Using example in Figure 1 in [Pakman, 2012].
+
+**Trace plots:**   
+```{r}
+# plots
+Xs_ESS = readRDS("x_ESS.rds")
+Xs_HMC = readRDS("x_EHMC.rds")
+
+par(mfrow=c(2,2))
+plot(Xs_ESS[1,], Xs_ESS[2,], cex = 0.5,
+     xlab = "X1", ylab = "X2", col = "blue",
+     xlim = c(1.5,6.5), ylim = c(1.5,6.5),
+     main = "Elliptical Slice Sampling")
+abline(a=0, b=1)
+abline(a=0, b=1.1)
+
+plot(Xs_HMC[1,], Xs_HMC[2,], cex = 0.5,
+     xlab = "X1", ylab = "X2", col = "red",
+     xlim = c(1.5,6.5), ylim = c(1.5,6.5),
+     main = "Exact HMC")
+abline(a=0, b=1)
+abline(a=0, b=1.1)
+
+# trace plots of first 400 iterations of X2
+plot(Xs_ESS[2,1:400], cex = 0.5, type = "l",
+     xlab = "Iteration", ylab = "X2", col = "blue",
+     xlim = c(1,400), ylim = c(0,8))
+
+plot(Xs_HMC[2,1:400], cex = 0.5, type = "l",
+     xlab = "Iteration", ylab = "X2", col = "red",
+     xlim = c(1,400), ylim = c(0,8))
+
+```
+
+\newpage
+
+**ACF plots:**  
+```{r}
+# acf plots
+acf_ESS1 = acf(Xs_ESS[1,], lag.max = 100, plot = F)
+acf_ESS2 = acf(Xs_ESS[2,], lag.max = 100, plot = F)
+
+acf_HMC1 = acf(Xs_HMC[1,], lag.max = 100, plot = F)
+acf_HMC2 = acf(Xs_HMC[2,], lag.max = 100, plot = F)
+
+par(mfrow=c(2,2))
+plot(acf_ESS1, type = "l", main = "X1 (ESS)")
+plot(acf_HMC1, type = "l", main = "X1 (HMC)")
+plot(acf_ESS2, type = "l", main = "X2 (ESS)")
+plot(acf_HMC2, type = "l", main = "X2 (HMC)")
+
+
+```
+
+**Computation time / iteration (s):**   
+```{r}
+t_ESS = readRDS("t_ESS.rds")
+t_HMC = readRDS("t_EHMC.rds")
+
+means = c(mean(t_ESS), mean(t_HMC))
+M = matrix(means, nrow = 1)
+colnames(M) = c("ESS", "HMC")
+
+kable(M)
+```
+
+
+\newpage
