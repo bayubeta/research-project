@@ -17,16 +17,42 @@ library(stats)
 
 # 1. Background  
 
+High-dimensional multivariate gaussian distribution is used in various models and applications. In some cases, we need to generate from a certain distribution which applies constraints to a multivariate gaussian distribution, as discussed by Gelfand et al. (1992) and Rodriguez-Yam et al. (2004). Sampling from this distribution is still a challenging issue, particularly because it is not straightforward to compute the normalizing constant for the density function.  
+
+The gibbs sampler has proven to be a suitable choices to sample from truncated mutivariate gaussian distributions (Gelfand et al. (1992)). Recently, more sophisticated methods have been developed to generate samples from truncated mutivariate gaussian distributions. In this research project, two methods, namely Exact Hamiltonian Monte Carlo (Pakman et al. (2014)) and Analytic Elliptical Slice Sampling (Fagan et al. (2016)), will be compared.   
+
+
+# 2. Definitions    
+
+## 2.1. Truncated Multivariate Gaussian Distribution 
+
+
+The truncated multivariate gaussian distribution is a probability distribution obtained from multivariate gaussian random variable by bounding it under some linear (or quadratic) constraints.   
+
+Let $\textrm{W}$ be a $d$-dimensional gaussian random variable with mean vector $mu$ and covariance matrix $\Sigma$. The corresponding truncated multivariate gaussian distribution can be defined as:   
+
+$$f_{\textrm{X}}(\textrm{x})=
+\frac{\exp\{-\frac{1}{2}(\textrm{x}-\mu)^T\Sigma^{-1}(\textrm{x}-\mu)\}}
+{\int_{a}^{b}\exp\{-\frac{1}{2}(\textrm{x}-\mu)^T\Sigma^{-1}(\textrm{x}-\mu)\}d\textrm{x}}I(a\leq\textrm{x}\leq b)$$
+
+Where $X$ is is a $d$-dimensional truncated gaussian random variable and *$a$* and *$b$* are the lower and upper bounds for $X$ respectively.  
+
+We can rewrite $X$ as:   
+
+$$\log f_{\textrm{X}}(\textrm{x}) = -\frac{1}{2}\textrm{x}^T \Lambda \textrm{x} + \nu^T\textrm{x} + const.$$   
+where $\Lambda = \Sigma^{-1}$ and $\nu = \Sigma^{-1}\mu$. Let $\textrm{F}$ be an $m \times d$ matrix and let $g$ be an $m \times 1$ vector. Then, $\textrm{X}$ must satisfy   
+
+$$\textrm{F}_j\textrm{X} + g_j \geq 0, \quad j=1,..., m$$
 
 
 
 
-# Results from research project:
+# 3. Results
 
 Using example in Figure 1 in [Pakman, 2012].
 
 **Trace plots:**   
-```{r}
+```{r, eval=FALSE}
 # plots
 Xs_ESS = readRDS("x_ESS.rds")
 Xs_HMC = readRDS("x_EHMC.rds")
@@ -60,7 +86,7 @@ plot(Xs_HMC[2,1:400], cex = 0.5, type = "l",
 \newpage
 
 **ACF plots:**  
-```{r}
+```{r, eval=FALSE}
 # acf plots
 acf_ESS1 = acf(Xs_ESS[1,], lag.max = 100, plot = F)
 acf_ESS2 = acf(Xs_ESS[2,], lag.max = 100, plot = F)
@@ -78,7 +104,7 @@ plot(acf_HMC2, type = "l", main = "X2 (HMC)")
 ```
 
 **Computation time / iteration (s):**   
-```{r}
+```{r, eval=FALSE}
 t_ESS = readRDS("t_ESS.rds")
 t_HMC = readRDS("t_EHMC.rds")
 
