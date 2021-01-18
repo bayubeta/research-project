@@ -140,7 +140,7 @@ plot(acf_HMC2, type = "l", main = "")
 
 
 
-```{r}
+```{r, fig.cap="Table 1: Average computation time for both models under different settings for 10-dimensional TMG under the constraints $-1 \leq x_i \leq 1, i=1,...,10$. "}
 # Computation time / iteration (s):
 t_HMC_pi2 = readRDS("t_EHMC_HD_pi2.rds")
 t_HMC_3pi4 = readRDS("t_EHMC_HD_3pi4.rds")
@@ -150,9 +150,11 @@ t_ESS_5 = readRDS("t_EESS_HD_J5.rds")
 t_ESS_10 = readRDS("t_EESS_HD_J10.rds")
 
 means = c(mean(t_HMC_pi2), mean(t_HMC_3pi4), mean(t_ESS_1), mean(t_ESS_5), mean(t_ESS_10))
-M = matrix(means, nrow = 1)
-colnames(M) = c("HMC(T=pi/2)", "HMC(T=(3/4)pi)", 
-                "ESS(J=1)", "ESS(J=5)", "ESS(J=10)")
+M = matrix(means, ncol = 1)
+M = cbind(c("HMC(T=pi/2)", "HMC(T=(3/4)pi)", 
+                "ESS(J=1)", "ESS(J=5)", "ESS(J=10)"),
+          round(M, 6))
+colnames(M) = c("Model", "Average computation time (second)")
 
 kable(M)
 ```
