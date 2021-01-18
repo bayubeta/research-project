@@ -12,7 +12,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
-knitr::opts_chunk$set(fig.width = 8, fig.height = 8)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 4)
 library(knitr)
 library(stats)
 ```
@@ -63,7 +63,7 @@ for $i=1,...,d$. The solution to those equations is
 $$x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t)$$
 which we can use as the trajectory of the particle along the state space.   
 
-To sample $\textrm{X}$, we first sample values of $\textrm{S}$ from $\mathcal{N}(\textbf{0},\textrm{I}_d)$ and use them with previous values, $\textrm{x}$, as the initial conditions. We will then move along this trajectory for a time $T$ until we reach a new point $\textrm{x}^*$. This sequence forms a markov chain that converges to the distribution $P(\textrm{X})$.   
+To sample $\textrm{X}$, we first sample values of $\textrm{S}$ from $\mathcal{N}(\textbf{0},\textrm{I}_d)$ and use them with previous values, $\textrm{x}$, as the initial conditions. We will then move along this trajectory for a time $T$ until we reach a new point $\textrm{x}^*$. This sequence forms a markov chain that converges to the distribution $P(\textrm{X})$ (Pakman et al. (2014)).   
 
 
 ## 2.3. Analytic Elliptical Slice Sampling   
@@ -82,75 +82,77 @@ $$\mathcal{E} = \{\textbf{x}':\textbf{x}'(\theta) = \textbf{x}\cos(\theta) + \bo
 as the set of possible new states and define   
 
 $$\mathcal{S}(y,\mathcal{E}) = \{ \textbf{x}'\in \mathcal{E}: L(\textbf{x}')>y\}$$  
-as the slice of acceptable proposed states. To form a markov chain that converges to the posterior distribution, we need to sample uniformly from the analytically pre-determined $\mathcal{S}(y,\mathcal{E})$.   
+as the slice of acceptable proposed states. To form a markov chain that converges to the posterior distribution, we need to sample uniformly from the analytically pre-determined $\mathcal{S}(y,\mathcal{E})$ (Fagan et al. (2016)).    
 
 
-# 3. Results   
+# 3. Results    
+
+In this section we are going to compare both methods (Exact HMC for TMG and Analytic ESS) under different settings of truncated multivariate gaussians. Fot both of them, we use linear change of variables to transform the distribution into a whitened frame such that the generated points are from $\mathcal{N}(\textbf{0},\textrm{I}_d)$.  
 
 
-
-Using example in Figure 1 in [Pakman, 2012].
-
-**Trace plots:**   
-```{r, eval=FALSE}
+ 
+```{r,fig.cap="Figure 1: Comparison of generated points from $\mathcal{N}((4,4)^T,\textrm{I}_2)$ under the constraints $X_1 \leq X_2 \leq1.1 X_1$ and $X_1,X_2 \geq 0$ with initial points (2, 2.1). First column: 1000 iterations. Second column: trace plots of the first 400 iterations of $X_2$. Third column: Autocorrelation of $X_2$. In this example we used $T=pi/2$ for HMC and $J=1$ for ESS. Both methods converges around $X_2=4$ and have relatively low autocorrelation scores but HMC appears to explore the possible space more."}
 # plots
-Xs_ESS = readRDS("x_ESS.rds")
+Xs_ESS = readRDS("x_EESS_J_1.rds")
 Xs_HMC = readRDS("x_EHMC.rds")
 
-par(mfrow=c(2,2))
-plot(Xs_ESS[1,], Xs_ESS[2,], cex = 0.5,
-     xlab = "X1", ylab = "X2", col = "blue",
-     xlim = c(1.5,6.5), ylim = c(1.5,6.5),
-     main = "Elliptical Slice Sampling")
-abline(a=0, b=1)
-abline(a=0, b=1.1)
-
-plot(Xs_HMC[1,], Xs_HMC[2,], cex = 0.5,
-     xlab = "X1", ylab = "X2", col = "red",
-     xlim = c(1.5,6.5), ylim = c(1.5,6.5),
-     main = "Exact HMC")
-abline(a=0, b=1)
-abline(a=0, b=1.1)
-
-# trace plots of first 400 iterations of X2
-plot(Xs_ESS[2,1:400], cex = 0.5, type = "l",
-     xlab = "Iteration", ylab = "X2", col = "blue",
-     xlim = c(1,400), ylim = c(0,8))
-
-plot(Xs_HMC[2,1:400], cex = 0.5, type = "l",
-     xlab = "Iteration", ylab = "X2", col = "red",
-     xlim = c(1,400), ylim = c(0,8))
-
-```
-
-\newpage
-
-**ACF plots:**  
-```{r, eval=FALSE}
-# acf plots
-acf_ESS1 = acf(Xs_ESS[1,], lag.max = 100, plot = F)
 acf_ESS2 = acf(Xs_ESS[2,], lag.max = 100, plot = F)
-
-acf_HMC1 = acf(Xs_HMC[1,], lag.max = 100, plot = F)
 acf_HMC2 = acf(Xs_HMC[2,], lag.max = 100, plot = F)
 
-par(mfrow=c(2,2))
-plot(acf_ESS1, type = "l", main = "X1 (ESS)")
-plot(acf_HMC1, type = "l", main = "X1 (HMC)")
-plot(acf_ESS2, type = "l", main = "X2 (ESS)")
-plot(acf_HMC2, type = "l", main = "X2 (HMC)")
+# ESS
+par(mfrow=c(2,3), oma = c(0,4,0,0))
 
+plot(Xs_ESS[1,], Xs_ESS[2,], cex = 0.5,
+     xlab = "x1", 
+     ylab = "x2", 
+     col = "blue",
+     xlim = c(1.5,6.5), ylim = c(1.5,6.5),
+     main = "")
+mtext(side=2, line=5, "Analytic ESS", font=2, cex=1.2)
+abline(a=0, b=1)
+abline(a=0, b=1.1)
+
+plot(Xs_ESS[2,1:400], cex = 0.5, type = "l",
+     xlab = "Iteration", ylab = "x2", col = "blue",
+     xlim = c(1,400), ylim = c(0,8))
+
+plot(acf_ESS2, type = "l", main = "")
+
+# HMC
+plot(Xs_HMC[1,], Xs_HMC[2,], cex = 0.5,
+     xlab = "x1", 
+     ylab = "x2", 
+     col = "red",
+     xlim = c(1.5,6.5), ylim = c(1.5,6.5),
+     main = "")
+mtext(side=2, line=5, "Exact HMC", font=2, cex=1.2)
+abline(a=0, b=1)
+abline(a=0, b=1.1)
+
+plot(Xs_HMC[2,1:400], cex = 0.5, type = "l",
+     xlab = "Iteration", ylab = "x2", col = "red",
+     xlim = c(1,400), ylim = c(0,8))
+
+plot(acf_HMC2, type = "l", main = "")
 
 ```
 
-**Computation time / iteration (s):**   
-```{r, eval=FALSE}
-t_ESS = readRDS("t_ESS.rds")
-t_HMC = readRDS("t_EHMC.rds")
 
-means = c(mean(t_ESS), mean(t_HMC))
+
+
+```{r}
+# Computation time / iteration (s):
+t_HMC_pi2 = readRDS("t_EHMC_HD_pi2.rds")
+t_HMC_3pi4 = readRDS("t_EHMC_HD_3pi4.rds")
+
+t_ESS_1 = readRDS("t_EESS_HD_J1.rds")
+t_ESS_5 = readRDS("t_EESS_HD_J5.rds")
+t_ESS_10 = readRDS("t_EESS_HD_J10.rds")
+
+means = c(mean(t_HMC_pi2), mean(t_HMC_3pi4), mean(t_ESS_1), mean(t_ESS_5), mean(t_ESS_10))
 M = matrix(means, nrow = 1)
-colnames(M) = c("ESS", "HMC")
+colnames(M) = c("HMC(T=pi/2)", "HMC(T=(3/4)pi)", 
+                "ESS(J=1)", "ESS(J=5)", "ESS(J=10)")
 
 kable(M)
 ```

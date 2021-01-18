@@ -12,7 +12,7 @@ g = matrix(c(-lb,ub), ncol = 1)
 
 m = nrow(Fmat)
 M = diag(d)
-L = 1000
+L = 10000
 
 mu = matrix(rep(0,d), ncol = 1)
 
@@ -25,7 +25,7 @@ diag(Sigma) = rep(1, d)
 initial_X = matrix(rep(0.5, d), ncol = 1)
 
 # set max travel time
-max_T = pi/2
+max_T = pi*(1/2)
 
 
 ######## transform to whitened frame ########
@@ -157,13 +157,12 @@ while(ncol(Xs) < L){
     if (ncol(Xs)%%100 == 0){
       cat("sample no:", ncol(Xs),"\n")
     }
+    
+    ########## end time ##########
+    end.time = Sys.time()
+    iter_times = cbind(iter_times, as.vector(end.time - start.time))
+    ##############################
   }
-  
-  
-  ########## end time ##########
-  end.time = Sys.time()
-  iter_times = cbind(iter_times, as.vector(end.time - start.time))
-  ##############################
 }
 
 
@@ -182,5 +181,5 @@ abline(h=1)
 
 plot(Xs[1,1:1000], type = "l", ylim = c(-2,2))
 
-saveRDS(Xs, file = "../report/x_EHMC_HD.rds")
-saveRDS(iter_times, file = "../report/t_EHMC_HD.rds")
+saveRDS(Xs, file = "../report/x_EHMC_HD_pi2.rds")
+saveRDS(iter_times, file = "../report/t_EHMC_HD_pi2.rds")

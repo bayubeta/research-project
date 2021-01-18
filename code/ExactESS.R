@@ -14,7 +14,7 @@ m = nrow(Fmat)
 d = ncol(Fmat)
 g = matrix(rep(0, m), ncol = 1)
 
-initial_X = matrix(c(2.1, 2.2), ncol = 1)
+initial_X = matrix(c(2, 2.1), ncol = 1)
 
 
 ######### transform to whitened frame ########
@@ -245,7 +245,7 @@ Xs = t(R)%*%Xs + matrix(mu, nrow = length(mu), ncol = N)
 plot(Xs[1,], Xs[2,], cex = 0.5,
      xlab = "X1", ylab = "X2",
      xlim = c(1.5,6.5), ylim = c(1.5,6.5),
-     main = "Exact ESS")
+     main = "Analytic ESS")
 
 
 saveRDS(Xs, file = "../report/x_EESS_J_1.rds")

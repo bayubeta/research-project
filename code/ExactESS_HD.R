@@ -19,8 +19,8 @@ mu = matrix(rep(0,d), ncol = 1)
 Sigma = matrix(rep(0.8, d*d), ncol = d, nrow = d)
 diag(Sigma) = rep(1, d)
 
-N = 1000
-J = 5
+N = 10000
+J = 10
 
 initial_X = matrix(rep(0.5, d), ncol = 1)
 
@@ -205,6 +205,10 @@ while(ncol(Xs)<=N){
     # input log_y to Slice:
     Intv = Slice(log_y)
     
+    if (interval_is_empty(Intv)){
+      break()
+    }
+    
     # uniformly random sample from the interval:
     t_new = multRunif(Intv)
     x_prime = last_X*cos(t_new) + v*sin(t_new)
@@ -213,8 +217,11 @@ while(ncol(Xs)<=N){
     
   }
   
+  
+  
   # check if satisfy constraints
-  if (all(Fmat %*% new_Xs + matrix(g, nrow = length(g), ncol = J) > 0)){
+  res = all(Fmat %*% new_Xs + matrix(g, nrow = length(g), ncol = J) > 0)
+  if (!is.na(res) && res){
     if (J>1){
       # random shuffle new_Xs
       ind = sample(1:J, J)
@@ -235,12 +242,12 @@ while(ncol(Xs)<=N){
     if ((ncol(Xs)-1)%%100 == 0){
       cat("sample no:", ncol(Xs)-1,"\n")
     }
+    
+    ########## end time ##########
+    end.time = Sys.time()
+    iter_times = cbind(iter_times, as.vector(end.time - start.time))
+    ##############################
   }
-  
-  ########## end time ##########
-  end.time = Sys.time()
-  iter_times = cbind(iter_times, as.vector(end.time - start.time))
-  ##############################
 }
 
 # remove first element
@@ -260,8 +267,7 @@ Xs = t(R)%*%Xs + matrix(mu, nrow = length(mu), ncol = N)
   abline(h=1)
 }
 
-
 plot(Xs[1,1:1000], type = "l", ylim = c(-2,2))
 
-saveRDS(Xs, file = "../report/x_EESS_HD_J5.rds")
-saveRDS(iter_times, file = "../report/t_EESS_HD_J5.rds")
+saveRDS(Xs, file = "../report/x_EESS_HD_J10.rds")
+saveRDS(iter_times, file = "../report/t_EESS_HD_J10.rds")
