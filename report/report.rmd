@@ -17,7 +17,7 @@ library(stats)
 
 # 1. Background  
 
-High-dimensional multivariate gaussian distribution is used in various models and applications. In some cases, we need to generate from a certain distribution which applies constraints to a multivariate gaussian distribution, as discussed by Gelfand et al. (1992) and Rodriguez-Yam et al. (2004). Sampling from this distribution is still a challenging issue, particularly because it is not straightforward to compute the normalizing constant for the density function.  
+High-dimensional multivariate gaussian distribution is used in various models and applications. In some cases, we need to generate from a certain distribution which applies constraints to a multivariate gaussian distribution (Gelfand et al. (1992) and Rodriguez-Yam et al. (2004)). Sampling from this distribution is still a challenging issue, particularly because it is not straightforward to compute the normalizing constant for the density function.  
 
 The gibbs sampler has proven to be a suitable choices to sample from truncated mutivariate gaussian distributions (Gelfand et al. (1992)). Recently, more sophisticated methods have been developed to generate samples from truncated mutivariate gaussian distributions. In this research project, two methods, namely Exact Hamiltonian Monte Carlo (Pakman et al. (2014)) and Analytic Elliptical Slice Sampling (Fagan et al. (2016)), will be compared.   
 
@@ -42,9 +42,29 @@ We can rewrite $X$ as:
 $$\log f_{\textrm{X}}(\textrm{x}) = -\frac{1}{2}\textrm{x}^T \Lambda \textrm{x} + \nu^T\textrm{x} + const.$$   
 where $\Lambda = \Sigma^{-1}$ and $\nu = \Sigma^{-1}\mu$. Let $\textrm{F}$ be an $m \times d$ matrix and let $g$ be an $m \times 1$ vector. Then, $\textrm{X}$ must satisfy   
 
-$$\textrm{F}_j\textrm{X} + g_j \geq 0, \quad j=1,..., m$$
+$$\textrm{F}_j\textrm{x} + g_j \geq 0, \quad j=1,..., m$$
+
+## 2.2. Exact Hamiltonian Monte Carlo for Truncated Multivariate Gaussians   
+
+Exact Hamiltonian Monte Carlo (HMC) for Truncated Multivariate Gaussians (TMG) (Pakman et al. (2014)) considers the exact paths of sample trajectories that follow the Hamiltonian equations of motion. It takes the Hamiltonian function     
+
+$$H = \frac{1}{2}\textrm{x}^T\textrm{x} + \frac{1}{2}\textrm{s}^T\textrm{s}$$
+in which the joint distribution is $P(\textrm{X}, \textrm{S}) = \exp(-H)$. With this form of $H$, we can derive the Hamilton's equations as   
+
+$$\begin{aligned}
+\frac{\partial x_i}{\partial t} & = \frac{\partial H}{\partial s_i}=s_i \\
+\frac{\partial s_i}{\partial t} & = -\frac{\partial H}{\partial x_i}=-x_i \\
+\end{aligned}$$
+
+for $i=1,...,d$. The solution to those equations is   
+
+$$x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t)$$
+which we can use as the trajectory of the particle along the state space.   
+
+To sample $\textrm{X}$, we first sample values of $\textrm{S}$ from $\mathcal{N}(\textbf{0},\textrm{I}_d)$ and use them with previous values, $\textrm{x}$, as the initial conditions. We will then move along this trajectory for a time $T$ until we reach a new point $\textrm{x}^*$. This sequence forms a markov chain that converges to the distribution $P(\textrm{X})$.   
 
 
+## Analytic 
 
 
 # 3. Results
