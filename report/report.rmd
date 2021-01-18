@@ -3,7 +3,9 @@ title: "Comparing Hamiltonian Monte Carlo and Elliptical Slice Sampling for cons
 subtitle: "732A76 Research Project Report"
 author: "Bayu Brahmantio (baybr878)"
 date: "`r format(Sys.time(), '%Y-%m-%d')`"
-output: pdf_document
+output:
+        pdf_document:
+                extra_dependencies: "amsmath"
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
@@ -64,10 +66,28 @@ which we can use as the trajectory of the particle along the state space.
 To sample $\textrm{X}$, we first sample values of $\textrm{S}$ from $\mathcal{N}(\textbf{0},\textrm{I}_d)$ and use them with previous values, $\textrm{x}$, as the initial conditions. We will then move along this trajectory for a time $T$ until we reach a new point $\textrm{x}^*$. This sequence forms a markov chain that converges to the distribution $P(\textrm{X})$.   
 
 
-## Analytic 
+## 2.3. Analytic Elliptical Slice Sampling   
+
+Elliptical Slice Sampling (ESS, Murray et al. (2010)) aims to sample from posterior of the form   
+
+$$P^*(\textrm{X}) = \frac1Z \mathcal{N}(\textrm{X};\textbf{0},\Sigma)L(\textrm{X})$$
+where $Z$ is the normalization constant, $\mathcal{N}(\textbf{0},\Sigma)$ is a multivariate gaussian prior, and $L$ is a likelihood function. The algorithm begins by sampling values of $\boldsymbol{\nu}$ which, together with the values of current state $\textbf{x}$, make an ellipse of possible new values   
+$$\textbf{x}' = \textbf{x}\cos(\theta) + \boldsymbol{\nu}\sin(\theta)$$.
+
+We then sample $y$ uniformly between $[0, L(\textbf{x})]$ to determine the height of the slice. To sample a new state from the ellipse, we sample values from the bracket $[0, 2\pi)$. A proposed point is accepted if it satisfies $L(\textbf{x}') > y$. Otherwise, we shrink the bracket towards $\theta = 0$ until the proposed state is accepted.   
+
+Analytic Elliptical Slice Sampling (Fagan et al. (2016)) is an extension to ESS where the possible sampling bracket is pre-determined. To do this, we define   
+
+$$\mathcal{E} = \{\textbf{x}':\textbf{x}'(\theta) = \textbf{x}\cos(\theta) + \boldsymbol{\nu}\sin(\theta)\}$$
+as the set of possible new states and define   
+
+$$\mathcal{S}(y,\mathcal{E}) = \{ \textbf{x}'\in \mathcal{E}: L(\textbf{x}')>y\}$$  
+as the slice of acceptable proposed states. To form a markov chain that converges to the posterior distribution, we need to sample uniformly from the analytically pre-determined $\mathcal{S}(y,\mathcal{E})$.   
 
 
-# 3. Results
+# 3. Results   
+
+
 
 Using example in Figure 1 in [Pakman, 2012].
 
