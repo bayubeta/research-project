@@ -178,3 +178,10 @@ There are, however, some caveats to the computation of Analytic ESS in this case
 
 
 # 5. References   
+
+<div id="refs"></div>
+
+
+# 6. Appendix  
+
+All codes are available on `https://github.com/bayubeta/research-project`. 
