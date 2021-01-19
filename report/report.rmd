@@ -89,9 +89,10 @@ as the slice of acceptable proposed states. To form a markov chain that converge
 
 In this section we are going to compare both methods (Exact HMC for TMG and Analytic ESS) under different settings of truncated multivariate gaussians. Fot both of them, we use linear change of variables to transform the distribution into a whitened frame such that the generated points are from $\mathcal{N}(\textbf{0},\textrm{I}_d)$.  
 
+Figure 1 shows how both algorithms sample a two-dimensional gaussian distribution with some constraints that results in a narrow support, similar to Figure 1 in Pakman et al. (2014). From both cases, we can see that they worked as expected. The generated samples rapidly converged to the mean while also complying the constraints. The autocorrelation function plots also show that the samples are not highly correlated. However,the Exact HMC tends to be spread more across the support than Analytic ESS.   
 
  
-```{r,fig.cap="Figure 1: Comparison of generated points from $\mathcal{N}((4,4)^T,\textrm{I}_2)$ under the constraints $X_1 \leq X_2 \leq1.1 X_1$ and $X_1,X_2 \geq 0$ with initial points (2, 2.1). First column: 1000 iterations. Second column: trace plots of the first 400 iterations of $X_2$. Third column: Autocorrelation of $X_2$. In this example we used $T=pi/2$ for HMC and $J=1$ for ESS. Both methods converges around $X_2=4$ and have relatively low autocorrelation scores but HMC appears to explore the possible space more."}
+```{r,fig.cap="Figure 1: Comparison of generated points from $\\mathcal{N}((4,4)^T,\\textrm{I}_2)$ under the constraints $X_1 \\leq X_2 \\leq1.1 X_1$ and $X_1,X_2 \\geq 0$ with initial points (2, 2.1). First column: 1000 iterations. Second column: trace plots of the first 400 iterations of $X_2$. Third column: Autocorrelation of $X_2$. In this example we used $T=pi/2$ for HMC and $J=1$ for ESS. Both methods converges around $X_2=4$ and have relatively low autocorrelation scores but HMC appears to explore the possible space more."}
 # plots
 Xs_ESS = readRDS("x_EESS_J_1.rds")
 Xs_HMC = readRDS("x_EHMC.rds")
@@ -137,10 +138,12 @@ plot(acf_HMC2, type = "l", main = "")
 
 ```
 
+Notice that the maximum traveling time $(T)$ and number of samples per iteration $(J)$ affect the computation time for Exact HMC and Analytic ESS respectively. The higher the maximum traveling time ($T$), the longer it takes for a particle in an HMC system to move while also increases the possibility of bouncing. At the same time, an increase in the value of $J$ lets us sample multiple points from the same ellipse without a significant increase in computation time.  
+
+From the experiments, we observed a large disparity between the runtimes of both algorithms. As seen in the Table 1, Exact HMC performs much faster than the fastest Analytic ESS.
 
 
-
-```{r, fig.cap="Table 1: Average computation time for both models under different settings for 10-dimensional TMG under the constraints $-1 \leq x_i \leq 1, i=1,...,10$. "}
+```{r, fig.cap="Table 1: Average computation time per sample for both models under different settings for 10-dimensional TMG under the constraints $-1 \\leq x_i \\leq 1, i=1,...,10$ using CPU. For HMC, T is the maximum travel time. For ESS, J is the number of points sampled in each iteration. The computation time for Exact HMC is overall much faster than Analytic ESS."}
 # Computation time / iteration (s):
 t_HMC_pi2 = readRDS("t_EHMC_HD_pi2.rds")
 t_HMC_3pi4 = readRDS("t_EHMC_HD_3pi4.rds")
@@ -149,15 +152,22 @@ t_ESS_1 = readRDS("t_EESS_HD_J1.rds")
 t_ESS_5 = readRDS("t_EESS_HD_J5.rds")
 t_ESS_10 = readRDS("t_EESS_HD_J10.rds")
 
-means = c(mean(t_HMC_pi2), mean(t_HMC_3pi4), mean(t_ESS_1), mean(t_ESS_5), mean(t_ESS_10))
+means = c(mean(t_HMC_pi2), mean(t_HMC_3pi4), mean(t_ESS_1), mean(t_ESS_5)/5, mean(t_ESS_10)/10)
 M = matrix(means, ncol = 1)
-M = cbind(c("HMC(T=pi/2)", "HMC(T=(3/4)pi)", 
+M = cbind(c("HMC(T=pi/2)", "HMC(T=3*pi/4)", 
                 "ESS(J=1)", "ESS(J=5)", "ESS(J=10)"),
-          round(M, 6))
-colnames(M) = c("Model", "Average computation time (second)")
+          round(M, 7))
+colnames(M) = c("Model", "Avg. computation time per sample (second)")
 
 kable(M)
+
+
 ```
+
+# 4. Discussion    
+
+We have compared 
+
 
 
 \newpage
