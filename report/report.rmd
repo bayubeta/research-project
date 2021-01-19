@@ -166,7 +166,9 @@ kable(M)
 
 # 4. Discussion    
 
-We have compared 
+In this research project, we have compared Exact HMC and Analytic ESS. In terms of the generated samples, they are not significantly different. Exact HMC also performs much faster than Analytic ESS. More rigorous measurements can be made to evaluate whether the samples are autocorrelated within a chain or not by measuring their effective sample size.     
+
+There are, however, some caveats to the computation of Analytic ESS in this case. We expected the runtime to be somewhat similar to Exact HMC, but it runs more than 100 times slower. This could be to the fact that external packages are used for the computation of the intervals and slices which could have been replaced by customized functions that are more specific to the task, hence the faster runtimes. The programming language used (`R`) is also not popularly chosen because of its speed. Thus, the algorithm might need to be rewritten in a faster language.
 
 
 
