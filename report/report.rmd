@@ -6,13 +6,16 @@ date: "`r format(Sys.time(), '%Y-%m-%d')`"
 output:
         pdf_document:
                 extra_dependencies: "amsmath"
+bibliography: ref.bib
+nocite: '@*'
+csl: american-statistical-association.csl
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
-knitr::opts_chunk$set(fig.width = 8, fig.height = 4)
+knitr::opts_chunk$set(fig.width = 8, fig.height = 6)
 library(knitr)
 library(stats)
 ```
@@ -21,7 +24,7 @@ library(stats)
 
 High-dimensional multivariate gaussian distribution is used in various models and applications. In some cases, we need to generate from a certain distribution which applies constraints to a multivariate gaussian distribution (Gelfand et al. (1992) and Rodriguez-Yam et al. (2004)). Sampling from this distribution is still a challenging issue, particularly because it is not straightforward to compute the normalizing constant for the density function.  
 
-The gibbs sampler has proven to be a suitable choices to sample from truncated mutivariate gaussian distributions (Gelfand et al. (1992)). Recently, more sophisticated methods have been developed to generate samples from truncated mutivariate gaussian distributions. In this research project, two methods, namely Exact Hamiltonian Monte Carlo (Pakman et al. (2014)) and Analytic Elliptical Slice Sampling (Fagan et al. (2016)), will be compared.   
+The gibbs sampler has proven to be a suitable choices to sample from truncated mutivariate gaussian distributions (Gelfand et al. (1992)). Recently, more sophisticated methods have been developed to generate samples from truncated mutivariate gaussian distributions. In this research project, two methods, namely Exact Hamiltonian Monte Carlo (Pakman et al. (2013)) and Analytic Elliptical Slice Sampling (Fagan et al. (2016)), will be compared.   
 
 
 # 2. Definitions    
@@ -48,7 +51,7 @@ $$\textrm{F}_j\textrm{x} + g_j \geq 0, \quad j=1,..., m$$
 
 ## 2.2. Exact Hamiltonian Monte Carlo for Truncated Multivariate Gaussians   
 
-Exact Hamiltonian Monte Carlo (HMC) for Truncated Multivariate Gaussians (TMG) (Pakman et al. (2014)) considers the exact paths of sample trajectories that follow the Hamiltonian equations of motion. It takes the Hamiltonian function     
+Exact Hamiltonian Monte Carlo (HMC) for Truncated Multivariate Gaussians (TMG) (Pakman et al. (2013)) considers the exact paths of sample trajectories that follow the Hamiltonian equations of motion. It takes the Hamiltonian function     
 
 $$H = \frac{1}{2}\textrm{x}^T\textrm{x} + \frac{1}{2}\textrm{s}^T\textrm{s}$$
 in which the joint distribution is $P(\textrm{X}, \textrm{S}) = \exp(-H)$. With this form of $H$, we can derive the Hamilton's equations as   
@@ -63,7 +66,7 @@ for $i=1,...,d$. The solution to those equations is
 $$x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t)$$
 which we can use as the trajectory of the particle along the state space.   
 
-To sample $\textrm{X}$, we first sample values of $\textrm{S}$ from $\mathcal{N}(\textbf{0},\textrm{I}_d)$ and use them with previous values, $\textrm{x}$, as the initial conditions. We will then move along this trajectory for a time $T$ until we reach a new point $\textrm{x}^*$. This sequence forms a markov chain that converges to the distribution $P(\textrm{X})$ (Pakman et al. (2014)).   
+To sample $\textrm{X}$, we first sample values of $\textrm{S}$ from $\mathcal{N}(\textbf{0},\textrm{I}_d)$ and use them with previous values, $\textrm{x}$, as the initial conditions. We will then move along this trajectory for a time $T$ until we reach a new point $\textrm{x}^*$. This sequence forms a markov chain that converges to the distribution $P(\textrm{X})$ (Pakman et al. (2013)).   
 
 
 ## 2.3. Analytic Elliptical Slice Sampling   
@@ -89,10 +92,10 @@ as the slice of acceptable proposed states. To form a markov chain that converge
 
 In this section we are going to compare both methods (Exact HMC for TMG and Analytic ESS) under different settings of truncated multivariate gaussians. Fot both of them, we use linear change of variables to transform the distribution into a whitened frame such that the generated points are from $\mathcal{N}(\textbf{0},\textrm{I}_d)$.  
 
-Figure 1 shows how both algorithms sample a two-dimensional gaussian distribution with some constraints that results in a narrow support, similar to Figure 1 in Pakman et al. (2014). From both cases, we can see that they worked as expected. The generated samples rapidly converged to the mean while also complying the constraints. The autocorrelation function plots also show that the samples are not highly correlated. However,the Exact HMC tends to be spread more across the support than Analytic ESS.   
+Figure 1 shows how both algorithms sample a two-dimensional gaussian distribution with some constraints that results in a narrow support, similar to Figure 1 in Pakman et al. (2013). From both cases, we can see that they worked as expected. The generated samples rapidly converged to the mean while also complying the constraints. The autocorrelation function plots also show that the samples are not highly correlated. However,the Exact HMC tends to be spread more across the support than Analytic ESS.   
 
  
-```{r,fig.cap="Figure 1: Comparison of generated points from $\\mathcal{N}((4,4)^T,\\textrm{I}_2)$ under the constraints $X_1 \\leq X_2 \\leq1.1 X_1$ and $X_1,X_2 \\geq 0$ with initial points (2, 2.1). First column: 1000 iterations. Second column: trace plots of the first 400 iterations of $X_2$. Third column: Autocorrelation of $X_2$. In this example we used $T=pi/2$ for HMC and $J=1$ for ESS. Both methods converges around $X_2=4$ and have relatively low autocorrelation scores but HMC appears to explore the possible space more."}
+```{r,fig.cap="Comparison of generated points from $\\mathcal{N}((4,4)^T,\\textrm{I}_2)$ under the constraints $X_1 \\leq X_2 \\leq1.1 X_1$ and $X_1,X_2 \\geq 0$ with initial points (2, 2.1). First column: 1000 iterations. Second column: trace plots of the first 400 iterations of $X_2$. Third column: Autocorrelation of $X_2$. In this example we used $T=pi/2$ for HMC and $J=1$ for ESS. Both methods converges around $X_2=4$ and have relatively low autocorrelation scores but HMC appears to explore the possible space more."}
 # plots
 Xs_ESS = readRDS("x_EESS_J_1.rds")
 Xs_HMC = readRDS("x_EHMC.rds")
@@ -143,7 +146,7 @@ Notice that the maximum traveling time $(T)$ and number of samples per iteration
 From the experiments, we observed a large disparity between the runtimes of both algorithms. As seen in the Table 1, Exact HMC performs much faster than the fastest Analytic ESS.
 
 
-```{r, fig.cap="Table 1: Average computation time per sample for both models under different settings for 10-dimensional TMG under the constraints $-1 \\leq x_i \\leq 1, i=1,...,10$ using CPU. For HMC, T is the maximum travel time. For ESS, J is the number of points sampled in each iteration. The computation time for Exact HMC is overall much faster than Analytic ESS."}
+```{r}
 # Computation time / iteration (s):
 t_HMC_pi2 = readRDS("t_EHMC_HD_pi2.rds")
 t_HMC_3pi4 = readRDS("t_EHMC_HD_3pi4.rds")
@@ -159,7 +162,9 @@ M = cbind(c("HMC(T=pi/2)", "HMC(T=3*pi/4)",
           round(M, 7))
 colnames(M) = c("Model", "Avg. computation time per sample (second)")
 
-kable(M)
+kable(M,
+      caption = "Table 1: Average computation time per sample for both models under different settings for 10-dimensional TMG under the constraints $-1 \\leq x_i \\leq 1, i=1,...,10$ using CPU. For HMC, T is the maximum travel time. For ESS, J is the number of points sampled in each iteration. The computation time for Exact HMC is overall much faster than Analytic ESS.")
+
 
 
 ```
@@ -168,8 +173,8 @@ kable(M)
 
 In this research project, we have compared Exact HMC and Analytic ESS. In terms of the generated samples, they are not significantly different. Exact HMC also performs much faster than Analytic ESS. More rigorous measurements can be made to evaluate whether the samples are autocorrelated within a chain or not by measuring their effective sample size.     
 
-There are, however, some caveats to the computation of Analytic ESS in this case. We expected the runtime to be somewhat similar to Exact HMC, but it runs more than 100 times slower. This could be to the fact that external packages are used for the computation of the intervals and slices which could have been replaced by customized functions that are more specific to the task, hence the faster runtimes. The programming language used (`R`) is also not popularly chosen because of its speed. Thus, the algorithm might need to be rewritten in a faster language.
+There are, however, some caveats to the computation of Analytic ESS in this case. We expected the runtime to be somewhat similar to Exact HMC, but it runs more than 100 times slower. This could be to the fact that external packages are used for the computation of the intervals and slices which could have been replaced by customized functions that are more specific to the task, hence the faster runtimes. The programming language used (`R`) is also not popularly chosen because of its speed. Thus, the algorithm might need to be rewritten in a language that is proven to be computationally faster.   
 
 
 
-\newpage
+# 5. References   

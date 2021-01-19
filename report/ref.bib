@@ -1,0 +1,53 @@
+@article{10.2307/2290286,
+ ISSN = {01621459},
+ URL = {http://www.jstor.org/stable/2290286},
+ abstract = {Constrained parameter problems arise in a wide variety of applications, including bioassay, actuarial graduation, ordinal categorical data, response surfaces, reliability development testing, and variance component models. Truncated data problems arise naturally in survival and failure time studies, ordinal data models, and categorical data studies aimed at uncovering underlying continuous distributions. In many applications both parameter constraints and data truncation are present. The statistical literature on such problems is very extensive, reflecting both the problems' widespread occurrence in applications and the methodological challenges that they pose. However, it is striking that so little of this applied and theoretical literature involves a parametric Bayesian perspective. From a technical viewpoint, this perhaps is not difficult to understand. The fundamental tool for Bayesian calculations in typical realistic models is (multidimensional) numerical integration, which often is problematic in unconstrained contexts and can be well-nigh impossible for the kinds of constrained problems we consider. In this article we show that Bayesian calculations can be implemented routinely for constrained parameter and truncated data problems by means of the Gibbs sampler. Specific models discussed include constrained multinormal parameters, constrained linear model parameters, ordered parameters in experimental family models, data and order restricted parameters from exponential distributions, straight line regression with censoring and bivariate grouped data models. Analysis of data sets illustrating the first two of these settings is provided.},
+ author = {Alan E. Gelfand and Adrian F. M. Smith and Tai-Ming Lee},
+ journal = {Journal of the American Statistical Association},
+ number = {418},
+ pages = {523--532},
+ publisher = {[American Statistical Association, Taylor & Francis, Ltd.]},
+ title = {Bayesian Analysis of Constrained Parameter and Truncated Data Problems Using Gibbs Sampling},
+ volume = {87},
+ year = {1992}
+}
+
+@inproceedings{RodrguezYam2004EfficientGS,
+  title={Efficient Gibbs Sampling of Truncated Multivariate Normal with Application to Constrained Linear Regression},
+  author={Gabriel A. Rodr{\'i}guez-Yam and Richard I. A. Davis and L. Scharf},
+  year={2004}
+}
+
+@misc{pakman2013exact,
+      title={Exact Hamiltonian Monte Carlo for Truncated Multivariate Gaussians}, 
+      author={Ari Pakman and Liam Paninski},
+      year={2013},
+      eprint={1208.4118},
+      archivePrefix={arXiv},
+      primaryClass={stat.CO}
+}
+
+@inproceedings{10.5555/3020948.3020967,
+author = {Fagan, Francois and Bhandari, Jalaj and Cunningham, John P.},
+title = {Elliptical Slice Sampling with Expectation Propagation},
+year = {2016},
+isbn = {9780996643115},
+publisher = {AUAI Press},
+address = {Arlington, Virginia, USA},
+abstract = {Markov Chain Monte Carlo techniques remain the gold standard for approximate Bayesian inference, but their practical issues — including onerous runtime and sensitivity to tuning parameters — often lead researchers to use faster but typically less accurate deterministic approximations. Here we couple the fast but biased deterministic approximation offered by expectation propagation with elliptical slice sampling, a state-of-the-art MCMC method. We extend our hybrid deterministic-MCMC method to include recycled samples and analytical slices, and we rigorously prove the validity of each enhancement. Taken together, we show that these advances provide an order of magnitude gain in efficiency beyond existing state-of-the-art sampling techniques in Bayesian classification and multivariate gaussian quadrature problems.},
+booktitle = {Proceedings of the Thirty-Second Conference on Uncertainty in Artificial Intelligence},
+pages = {172–181},
+numpages = {10},
+location = {Jersey City, New Jersey, USA},
+series = {UAI'16}
+}
+
+@article{murray2010,
+  title={Elliptical slice sampling},
+  author={Iain Murray and Ryan Prescott Adams and David J. C. MacKay},
+  booktitle={The Proceedings of the 13th International Conference on Artificial Intelligence and Statistics},
+  series={JMLR: W\&CP},
+  volume={9},
+  pages={541--548},
+  year={2010}
+}
