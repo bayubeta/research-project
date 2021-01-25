@@ -41,26 +41,44 @@ Let $\textbf{W}$ be a $d$-dimensional gaussian random variable with mean vector 
 
 \begin{equation}
 $$
-{f_{\textbf{X}}(\boldsymbol{\textbf{x}})=\frac{\exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\}}{\int_{\textbf{F}\textbf{x} + g \geq 0}\exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\}d\textbf{x}}I(\textbf{F}\textbf{x} + g \geq 0)}
+{p(\boldsymbol{\textbf{x}})=\frac{\exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\}}{\int_{\textbf{F}\textbf{x} + g \geq 0}\exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\}d\textbf{x}}I(\textbf{F}\textbf{x} + g \geq 0)}
 $$
 \label{eq:tmvg}
 \end{equation}
 
 
-Where $X$ is a $d$-dimensional truncated gaussian random variable, $I$ is an indicator function, and $\textbf{F}$ is an $m \times d$ matrix, which, together with the $m \times 1$ vector of $g$, defines $m$ constraints.  
+Where $X$ is a $d$-dimensional truncated gaussian random variable, $I$ is an indicator function, and $\textbf{F}$ is an $m \times d$ matrix, which, together with the $m \times 1$ vector of $\textbf{g}$, defines $m$ constraints.  
 
 We can rewrite $f_{\textbf{X}}$ as:   
 
 \begin{equation}
-f_{\textbf{X}}(\textbf{x}) = \frac1Z\exp\bigg\{-\frac{1}{2}\textbf{x}^T \Lambda \textbf{x} + \nu^T\textbf{x}\bigg\}I(\textbf{F}\textbf{x} + g \geq 0)
+$$
+p(\textbf{x}) = \frac1Z\exp\bigg\{-\frac{1}{2}\textbf{x}^T \boldsymbol{\Lambda} \textbf{x} + \boldsymbol{\nu}^T\textbf{x}\bigg\}I(\textbf{F}\textbf{x} + \textbf{g} \geq 0)
+$$
 \label{eq:tmvg2}
 \end{equation}
 
-where $\Lambda = \boldsymbol{\Sigma}^{-1}$, $\nu = \boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}$, and $Z$ is the normalizing constant.
+where $\boldsymbol{\Lambda} = \boldsymbol{\Sigma}^{-1}$, $\boldsymbol{\nu} = \boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}$, and $Z$ is the normalizing constant.
 
 ## 2.2. Exact Hamiltonian Monte Carlo for Truncated Multivariate Gaussians   
 
-Exact Hamiltonian Monte Carlo (HMC) for Truncated Multivariate Gaussians (TMG) (Pakman et al. (2013)) considers the exact paths of sample trajectories that follow the Hamiltonian equations of motion. Starting from $(\ref{eq:tmvg2})$, we can 
+Exact Hamiltonian Monte Carlo (HMC) for Truncated Multivariate Gaussians (TMG) (Pakman et al. (2013)) considers the exact paths of particle trajectories that follow Hamiltonian equations of motion:
+
+$$\begin{aligned}
+\frac{\partial x_i}{\partial t} & = \frac{\partial H}{\partial s_i}=s_i \\
+\frac{\partial s_i}{\partial t} & = -\frac{\partial H}{\partial x_i}=-x_i \\
+\end{aligned}$$
+
+To do this, let us sample from a standard normal distribution   
+
+\begin{equation}
+$$
+p(\textbf{x}) = \frac1Z\exp\bigg\{-\frac{1}{2}\textbf{x}^T \textbf{x} \bigg\}I(\textbf{F}\textbf{x} + \textbf{g} \geq 0)
+$$
+\label{eq:tmvg2}
+\end{equation}
+
+which can be obtained from $(\ref{eq:tmvg2})$ through linear change of variables.
 
 
 
