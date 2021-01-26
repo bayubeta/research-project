@@ -112,14 +112,19 @@ $$
 \end{split}
 $$
 
-In this sense, we want the particles in the Hamiltonian system to only move around inside the constrained space and may also hit the 'wall', in which $\textbf{F}\textbf{x} + \textbf{g} = 0$. 
+In this sense, we want the particles in the Hamiltonian system to only move around inside the constrained space. Hence, it may hit walls and bounce.  
 
-The solution to those equations is   
+The exact trajectory of a particle using the equations above is:   
 
-$$x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t)$$
-which we can use as the trajectory of the particle along the state space.   
+$$x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t).$$
+A particle will follow the trajectory above until it hits a wall, or in other words, until $\textbf{F}\textbf{x} + \textbf{g} = 0$.    
 
-To sample $\textbf{X}$, we first sample values of $\textbf{S}$ from $\mathcal{N}(\textbf{0},\textbf{I}_d)$ and use them with previous values, $\textbf{x}$, as the initial conditions. We will then move along this trajectory for a time $T$ until we reach a new point $\textbf{x}^*$. This sequence forms a markov chain that converges to the distribution $P(\textbf{X})$ (Pakman et al. (2013)).   
+
+
+
+
+
+
 
 
 ## 2.3. Analytic Elliptical Slice Sampling   
