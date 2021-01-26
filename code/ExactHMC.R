@@ -1,14 +1,15 @@
 # X: d x 1 vector
 # F: m x d matrix
 # g: m x 1 vector
-rm(list=ls())
+#rm(list=ls())
 
 Fmat = matrix(c(1,0,0,1, -1, 1, 1.1, -1), byrow = TRUE, ncol = 2)
 m = nrow(Fmat)
 d = ncol(Fmat)
 g = matrix(rep(0, m), ncol = 1)
 M = diag(d)
-L = 1000
+L = 10000
+burn_in = 500
 
 mu = matrix(c(4,4), ncol = 1)
 Sigma = matrix(c(1,0,0,1), ncol=2)
@@ -16,11 +17,12 @@ Sigma = matrix(c(1,0,0,1), ncol=2)
 M = solve(Sigma)
 r = M %*% mu
 
-initial_X = matrix(c(2, 2.1), ncol = 1)
+initial_X = matrix(c(3.5, 3.6), ncol = 1)
 
 # set max travel time
 max_T = pi/2
 
+L = L+burn_in
 
 ######## transform to whitened frame ########
 # translate X and g by mu
@@ -47,7 +49,7 @@ Xs = matrix(initial_X, ncol = 1)
 
 iter_times = c()
 
-set.seed(12345)
+set.seed(1234)
 # loop to sample X
 while(ncol(Xs) < L){
   ######### start time #########
@@ -102,7 +104,7 @@ while(ncol(Xs) < L){
           cs = cumsum(pn)
           indj = cs[h]
           tt1 = t_hit[indj]
-          if (is.nan(tt1)){
+          if (is.nan(tt1) || abs(tt1)<nearzero){
             t_hit[indj] = Inf
           }
         }
@@ -142,7 +144,7 @@ while(ncol(Xs) < L){
   }
   
   # check if all constraints are satisfied
-  if (all(Fmat%*%X + g > 0)){
+  if (!any(is.nan(X)) && all(Fmat%*%X + g >= 0)){
     # if yes, keep current X and change the value of last_X
     Xs = cbind(Xs, X)
     last_X = X
@@ -162,6 +164,9 @@ while(ncol(Xs) < L){
 # transform back
 Xs = t(R) %*% Xs + matrix(mu, nrow = length(mu), ncol = L)
 
+# remove burn-in
+Xs = Xs[,-(1:burn_in)]
+
 
 plot(Xs[1,], Xs[2,], cex = 0.5,
      xlab = "X1", ylab = "X2",
@@ -169,5 +174,5 @@ plot(Xs[1,], Xs[2,], cex = 0.5,
      main = "Exact HMC")
 
 
-saveRDS(Xs, file = "../report/x_EHMC.rds")
-saveRDS(iter_times, file = "../report/t_EHMC.rds")
+# saveRDS(Xs, file = "../report/x_EHMC.rds")
+# saveRDS(iter_times, file = "../report/t_EHMC.rds")
