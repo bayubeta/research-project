@@ -136,7 +136,7 @@ while(ncol(Xs) < L){
     # compute reflected velocity as new V0
     alpha_h = as.vector((Fmat[h,] %*% V)/sum(Fmat[h,]^2))
     F_h = matrix(Fmat[h,], ncol = 1)
-    V0 = V - 2*alpha_h*F_h
+    V0 = -V + 2*alpha_h*F_h
     
     nbounce = nbounce + 1
   }
