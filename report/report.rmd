@@ -112,31 +112,9 @@ $$
 \end{split}
 $$
 
-In this sense, we want the particles in the Hamiltonian system to only move around inside the constrained space and may also hit the 'wall', in which $\textbf{F}\textbf{x} + \textbf{g} = 0$. The distribution 
+In this sense, we want the particles in the Hamiltonian system to only move around inside the constrained space and may also hit the 'wall', in which $\textbf{F}\textbf{x} + \textbf{g} = 0$. 
 
-\begin{equation}
-$$
-p(\textbf{x}) = \frac1Z\exp\bigg\{-\frac{1}{2}\textbf{x}^T \textbf{x} \bigg\}I(\textbf{F}\textbf{x} + \textbf{g} \geq 0)
-$$
-\label{eq:tmvg2}
-\end{equation}
-
-which can be obtained from $(\ref{eq:tmvg2})$ through linear change of variables.
-
-
-
-
-It takes the Hamiltonian function     
-
-
-in which the joint distribution is $P(\textbf{X}, \textbf{S}) = \exp(-H)$. With this form of $H$, we can derive the Hamilton's equations as   
-
-$$\begin{aligned}
-\frac{\partial x_i}{\partial t} & = \frac{\partial H}{\partial s_i}=s_i \\
-\frac{\partial s_i}{\partial t} & = -\frac{\partial H}{\partial x_i}=-x_i \\
-\end{aligned}$$
-
-for $i=1,...,d$. The solution to those equations is   
+The solution to those equations is   
 
 $$x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t)$$
 which we can use as the trajectory of the particle along the state space.   
