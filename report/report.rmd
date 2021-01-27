@@ -117,8 +117,26 @@ In this sense, we want the particles in the Hamiltonian system to only move arou
 The exact trajectory of a particle using the equations above is:   
 
 $$x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t).$$
-A particle will follow the trajectory above until it hits a wall, or in other words, until $\textbf{F}\textbf{x} + \textbf{g} = 0$.    
+A particle will follow the trajectory above until it hits a wall, or in other words, until $\textbf{F}\textbf{x} + \textbf{g} = 0$. Let $t_h$ be the time when the particle hits wall $h$, or when $\textbf{F}_h \textbf{x}(t_h) + \text{g}_h = 0$. It will hit the wall with velocity $\dot{\textbf{x}}(t_h)$ which can be decomposed into:   
 
+$$ \begin{align}
+\dot{\textbf{x}}(t_h) & = proj_{\textbf{n}}\dot{\textbf{x}}(t_h) + proj_{\textbf{F}_h}\dot{\textbf{x}}(t_h) \\
+\end{align}$$
+
+where $proj_{\textbf{n}}\dot{\textbf{x}}(t_h)$ is the projection of $\dot{\textbf{x}}(t_h)$ on the normal vector $\textbf{n}$ perpendicular to $\textbf{F}_h$ and   
+$$ \begin{align}
+proj_{\textbf{F}_h}\dot{\textbf{x}}(t_h) &= \frac{\textbf{F}_h \cdot \dot{\textbf{x}}(t_h)}{||\textbf{F}_h||}\frac{\textbf{F}_h}{||\textbf{F}_h||}\\  
+
+&= \frac{\textbf{F}_h \cdot \dot{\textbf{x}}(t_h)}{||\textbf{F}_h||^2}\textbf{F}_h \\
+&= \alpha_h\textbf{F}_h.
+\end{align}$$
+
+By inverting the direction of $proj_{\textbf{n}}\dot{\textbf{x}}(t_h)$, we can obtain the reflected velocity as:  
+
+$$ \begin{align}
+\dot{\textbf{x}}_R(t_h) & = -proj_{\textbf{n}}\dot{\textbf{x}}(t_h) + proj_{\textbf{F}_h}\dot{\textbf{x}}(t_h) \\
+& = -\dot{\textbf{x}}(t_h) + 2\alpha_h\textbf{F}_h.
+\end{align}$$
 
 
 
