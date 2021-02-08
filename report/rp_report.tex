@@ -21,16 +21,97 @@ The gibbs sampler has proven to be a suitable choices to sample from truncated m
 
 \section{Definitions}
 \subsection{Truncated Multivariate Gaussian Distribution}
-The truncated multivariate Gaussian distribution is a probability distribution obtained from a multivariate gaussian random variable by bounding it under some linear (or quadratic) constraints.   
+The truncated multivariate Gaussian distribution is a probability distribution obtained from a multivariate Gaussian random variable by bounding it under some linear (or quadratic) constraints.   
 
 Let $\textbf{w}$ be a $d$-dimensional Gaussian random variable with mean vector $\boldsymbol{\mu}$ and covariance matrix $\boldsymbol{\Sigma}$. The corresponding truncated multivariate Gaussian distribution can be defined as
-\begin{equation}\label{tmg}
+\begin{equation}\label{eq:tmg}
 	p(\boldsymbol{\textbf{x}}) = \frac{\exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^{\intercal} \boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\}}{\int_{\textbf{F}\textbf{x} + \textbf{g} \geq 0} \exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^{\intercal} \boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\} d\textbf{x}}\mathbbm{1}(\textbf{F}\textbf{x} + \textbf{g} \geq 0)
 \end{equation}
-where $\textbf{x}$ is a $d$-dimensional truncated Gaussian random variable, $\mathbbm{1}$ is an indicator function, and $\textbf{F}$ is an $m \times d$ matrix, which, together with the $m \times 1$ vector of $\textbf{g}$, defines all $m$ constraints of $p(\boldsymbol{\textbf{x}})$.  We denote this as $\textbf{x} \sim TN(\boldsymbol{\mu}, \boldsymbol{\Sigma};\textbf{F},\textbf{g})$. We can rewrite $p(\boldsymbol{\textbf{x}})$ as
-\begin{equation}\label{tmg2}
+where $\textbf{x}$ is a $d$-dimensional truncated Gaussian random variable, $\mathbbm{1}$ is an indicator function, and $\textbf{F}$ is an $m \times d$ matrix, which, together with the $m \times 1$ vector of $\textbf{g}$, defines all $m$ constraints of $p(\boldsymbol{\textbf{x}})$.  We denote this as $\textbf{x} \sim TN(\boldsymbol{\mu}, \boldsymbol{\Sigma};\textbf{F},\textbf{g})$.   
+
+We can rewrite $p(\boldsymbol{\textbf{x}})$ as
+\begin{equation}\label{eq:tmg2}
 	p(\textbf{x}) = \frac1Z\exp\bigg\{-\frac{1}{2}\textbf{x}^{\intercal} \boldsymbol{\Lambda} \textbf{x} + \boldsymbol{\nu}^{\intercal}\textbf{x}\bigg\}\mathbbm{1}(\textbf{F}\textbf{x} + \textbf{g} \geq 0)
 \end{equation}
+where $\boldsymbol{\Lambda} = \boldsymbol{\Sigma}^{-1}$, $\boldsymbol{\nu} = \boldsymbol{\Sigma}^{-1}\boldsymbol{\mu}$, and $Z$ is the normalizing constant. Through linear change of variables, \eqref{eq:tmg2} can be transformed into
+\begin{equation}\label{eq:tmg3}
+	p(\textbf{x}) = \frac1Z\exp\bigg\{-\frac{1}{2}\textbf{x}^{\intercal}\textbf{x}\bigg\}\mathbbm{1}(\textbf{F}^*\textbf{x} + \textbf{g}^* \geq 0)
+\end{equation}
+such that $\textbf{x} \sim TN(\textbf{0}, \textbf{I}_d;\textbf{F}^*,\textbf{g}^*)$, for some values of $\textbf{F}^*$ and $\textbf{g}^*$.
+
+\subsection{Exact Hamiltonian Monte Carlo for Truncated Multivariate Gaussians}   
+Exact Hamiltonian Monte Carlo (HMC) for Truncated Multivariate Gaussians (TMG) (\cite{pakman2013exact}) considers the exact paths of particle trajectories in a Hamiltonian system
+\begin{equation}\label{eq:hml}
+	H(\textbf{x}, \textbf{s}) = U(\textbf{x}) + K(\textbf{s})
+\end{equation}
+where $U(\textbf{x})$ is the potential energy term as a function of particle's position ($\textbf{x}$) and $K(\textbf{s})$ is the kinetic energy term as a function of particle's momentum ($\textbf{s}$). Both $\textbf{x}$ and $\textbf{s}$ are of $d$-dimensions.   
+The change of position and momentum over time $t$ can be described by Hamilton's equations
+\begin{equation}\label{eq:heqs}
+\begin{split}
+	\frac{\partial x_i}{\partial t} & = \frac{\partial H}{\partial s_i} \\
+	\frac{\partial s_i}{\partial t} & = -\frac{\partial H}{\partial x_i}, \qquad i=1,...,d.\\
+\end{split}
+\end{equation}
+
+The target distribution is related to the current energy state of the particle through canonical distribution:
+\begin{equation}\label{eq:can}
+	p(\textbf{x}) \propto \exp\{-E(\textbf{x})\}
+\end{equation}
+where the target distribution, $p(\textbf{x})$, depends on the value of energy function $E(\textbf{x})$. In a Hamiltonian system, we have $H(\textbf{x}, \textbf{s})$ as our energy function, which results in the canonical distribution:
+\begin{equation}\label{eq:can2}
+\begin{split}
+	p(\textbf{x}, \textbf{s}) &\propto \exp\{-H(\textbf{x}, \textbf{s})\} \\
+	&\propto \exp\{-U(\textbf{x})\} \exp\{-K(\textbf{s})\} \\
+	&\propto p(\textbf{x})p(\textbf{s}).
+\end{split}
+\end{equation}
+
+Hence, $\textbf{x}$ and $\textbf{s}$ are independent. To sample from the target distribution $p(\textbf{x})$, we can sample from the joint distribution $p(\textbf{x}, \textbf{s})$ and ignore the variable $\textbf{s}$.  
+
+Suppose our target distribution $p(\textbf{x})$ is a truncated multivariate Gaussian distribution as in ($\ref{eq:tmg3}$). We can set our momenta to be normally distributed, that is $\textbf{s} \sim \mathcal{N}(\textbf{0}, \textbf{I}_d)$. Therefore, the Hamiltonian system can be described as: 
+\begin{equation}\label{eq:hsys}
+	H = U(\textbf{x}) + K(\textbf{s}) = \frac{1}{2}\textbf{x}^{\intercal}\textbf{x} + \frac{1}{2}\textbf{s}^{\intercal}\textbf{s}
+\end{equation}
+subject to:  
+\begin{equation}\label{eq:st}
+	\textbf{F}\textbf{x} + \textbf{g} \geq 0.
+\end{equation}
+for some values of $\textbf{F}$ and $\textbf{g}$.   
+
+The equations of motion for the Hamiltonian system in \eqref{eq:hsys} are:    
+\begin{equation}\label{eq:heqs2}
+\begin{split}
+	\frac{\partial x_i}{\partial t} & = \frac{\partial H}{\partial s_i} = s_i \\
+	\frac{\partial s_i}{\partial t} & = -\frac{\partial H}{\partial x_i} -x_i, \qquad i=1,...,d\\
+\end{split}
+\end{equation}
+
+In this sense, we want the particles in Hamiltonian system to only move around inside the constrained space. The exact trajectory of a particle using the equations above is:    
+\begin{equation}\label{eq:path}
+	x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t).
+\end{equation}
+A particle will follow the trajectory above until it hits a wall, or in other words, until $\textbf{F}\textbf{x} + \textbf{g} = 0$. Let $t_h$ be the time when the particle hits wall $h$, or when $\textbf{F}_h \cdot \textbf{x}(t_h) + \text{g}_h = 0$. It will hit the wall with velocity $\dot{\textbf{x}}(t_h)$ which can be decomposed into:   
+\begin{equation}\label{eq:bounce}
+	\dot{\textbf{x}}(t_h) = proj_{\textbf{n}}\dot{\textbf{x}}(t_h) + proj_{\textbf{F}_h}\dot{\textbf{x}}(t_h)
+\end{equation}
+where $proj_{\textbf{n}}\dot{\textbf{x}}(t_h)$ is the projection of $\dot{\textbf{x}}(t_h)$ on the normal vector $\textbf{n}$ perpendicular to $\textbf{F}_h$ and
+\begin{equation}\label{eq:proj}
+\begin{split}
+	proj_{\textbf{F}_h}\dot{\textbf{x}}(t_h) &= \frac{\textbf{F}_h \cdot \dot{\textbf{x}}(t_h)}{||\textbf{F}_h||}\frac{\textbf{F}_h}{||\textbf{F}_h||}\\  
+	&= \frac{\textbf{F}_h \cdot \dot{\textbf{x}}(t_h)}{||\textbf{F}_h||^2}\textbf{F}_h \\
+	&= \alpha_h\textbf{F}_h.
+\end{split}
+\end{equation}
+
+By inverting the direction of $proj_{\textbf{n}}\dot{\textbf{x}}(t_h)$, we can obtain the reflected velocity as
+\begin{equation}\
+\begin{split}
+	\dot{\textbf{x}}_R(t_h) & = -proj_{\textbf{n}}\dot{\textbf{x}}(t_h) + proj_{\textbf{F}_h}\dot{\textbf{x}}(t_h) \\
+	& = -\dot{\textbf{x}}(t_h) + 2\alpha_h\textbf{F}_h
+\end{split}
+\end{equation}
+which can be used as the new velocity 
+
 
 \bibliography{ref}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2020.4.14)  8 FEB 2021 14:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2020.4.14)  8 FEB 2021 16:41
 entering extended mode
 **./rp_report.tex
 (rp_report.tex
@@ -274,37 +274,44 @@ File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 [1
 
 
-{C:/Users/Bayu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-(rp_report.bbl) [2] (rp_report.aux) ) 
+{C:/Users/Bayu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+Overfull \hbox (2.43333pt too wide) detected at line 112
+ []
+ []
+
+(rp_report.bbl [3]) [4] (rp_report.aux) ) 
 Here is how much of TeX's memory you used:
- 5021 strings out of 480903
- 99583 string characters out of 2899173
- 465849 words of memory out of 3000000
- 20881 multiletter control sequences out of 15000+200000
+ 5032 strings out of 480903
+ 99687 string characters out of 2899173
+ 468849 words of memory out of 3000000
+ 20892 multiletter control sequences out of 15000+200000
  544746 words of font info for 72 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,8n,62p,10625b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Bayu\AppData\Local\MiKTeX\2.9\f
-onts/pk/ljfour/public/bbm/dpi657\bbm10.pk><C:/Users/Bayu/AppData/Local/Programs
-/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Bayu/AppData/Lo
-cal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/Bayu
-/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C
-:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
-mmi10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmmib10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/t
-ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 
-2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Bayu/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Bayu/AppData/L
-ocal/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/
-Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pf
+ 68i,20n,62p,10625b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\Bayu\AppData\Local\MiKTeX\2
+.9\fonts/pk/ljfour/public/bbm/dpi657\bbm10.pk><C:/Users/Bayu/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Bayu/AppDat
+a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/
+Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pf
 b><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmsy8.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmti10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKT
-eX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on rp_report.pdf (2 pages, 159893 bytes).
+cm/cmmi10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmi6.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts
+/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/Bayu/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Bayu/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/User
+s/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pf
+b><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmssbx10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Bayu/AppData/Local/Programs/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Bayu/AppData/Local
+/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Bayu/A
+ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb
+>
+Output written on rp_report.pdf (4 pages, 188355 bytes).
 PDF statistics:
- 70 PDF objects out of 1000 (max. 8388607)
+ 84 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
