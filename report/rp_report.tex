@@ -1,0 +1,37 @@
+\documentclass{scrartcl}
+\usepackage{natbib}
+\usepackage{amsmath, amsfonts, amssymb, bbm}
+\numberwithin{equation}{section}
+\bibliographystyle{unsrtnat}
+
+%opening
+\title{Comparing Hamiltonian Monte Carlo and Elliptical Slice Sampling for constrained Gaussian distributions}
+\subtitle{732A76 Research Project Report}
+\author{Bayu Brahmantio (baybr878)}
+
+\begin{document}
+
+\maketitle
+
+\section{Background}
+High-dimensional multivariate gaussian distribution is used in various models and applications. In some cases, we need to generate from a certain distribution which applies constraints to a multivariate Gaussian distribution (\cite{gelfand1992GS} and \cite{RodrguezYam2004EfficientGS}). Sampling from this distribution is still a challenging issue, particularly because it is not straightforward to compute the normalizing constant for the density function.  
+
+The gibbs sampler has proven to be a suitable choices to sample from truncated multivariate Gaussian distributions (\cite{gelfand1992GS}). Recently, more sophisticated methods have been developed to generate samples from truncated multivariate Gaussian distributions. In this research project, two methods, namely Exact Hamiltonian Monte Carlo (\cite{pakman2013exact}) and Analytic Elliptical Slice Sampling (\cite{Fagan2016ESSwEP}), will be compared. 
+
+
+\section{Definitions}
+\subsection{Truncated Multivariate Gaussian Distribution}
+The truncated multivariate Gaussian distribution is a probability distribution obtained from a multivariate gaussian random variable by bounding it under some linear (or quadratic) constraints.   
+
+Let $\textbf{w}$ be a $d$-dimensional Gaussian random variable with mean vector $\boldsymbol{\mu}$ and covariance matrix $\boldsymbol{\Sigma}$. The corresponding truncated multivariate Gaussian distribution can be defined as
+\begin{equation}\label{tmg}
+	p(\boldsymbol{\textbf{x}}) = \frac{\exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^{\intercal} \boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\}}{\int_{\textbf{F}\textbf{x} + \textbf{g} \geq 0} \exp\{-\frac{1}{2}(\textbf{x}-\boldsymbol{\mu})^{\intercal} \boldsymbol{\Sigma}^{-1}(\textbf{x}-\boldsymbol{\mu})\} d\textbf{x}}\mathbbm{1}(\textbf{F}\textbf{x} + \textbf{g} \geq 0)
+\end{equation}
+where $\textbf{x}$ is a $d$-dimensional truncated Gaussian random variable, $\mathbbm{1}$ is an indicator function, and $\textbf{F}$ is an $m \times d$ matrix, which, together with the $m \times 1$ vector of $\textbf{g}$, defines all $m$ constraints of $p(\boldsymbol{\textbf{x}})$.  We denote this as $\textbf{x} \sim TN(\boldsymbol{\mu}, \boldsymbol{\Sigma};\textbf{F},\textbf{g})$. We can rewrite $p(\boldsymbol{\textbf{x}})$ as
+\begin{equation}\label{tmg2}
+	p(\textbf{x}) = \frac1Z\exp\bigg\{-\frac{1}{2}\textbf{x}^{\intercal} \boldsymbol{\Lambda} \textbf{x} + \boldsymbol{\nu}^{\intercal}\textbf{x}\bigg\}\mathbbm{1}(\textbf{F}\textbf{x} + \textbf{g} \geq 0)
+\end{equation}
+
+\bibliography{ref}
+
+\end{document}
