@@ -82,7 +82,7 @@ The equations of motion for the Hamiltonian system in \eqref{eq:hsys} are:
 \begin{equation}\label{eq:heqs2}
 \begin{split}
 	\frac{\partial x_i}{\partial t} & = \frac{\partial H}{\partial s_i} = s_i \\
-	\frac{\partial s_i}{\partial t} & = -\frac{\partial H}{\partial x_i} -x_i, \qquad i=1,...,d\\
+	\frac{\partial s_i}{\partial t} & = -\frac{\partial H}{\partial x_i} -x_i, \qquad i=1,...,d.\\
 \end{split}
 \end{equation}
 
@@ -90,6 +90,7 @@ In this sense, we want the particles in Hamiltonian system to only move around i
 \begin{equation}\label{eq:path}
 	x_i(t) = s_i(0)\sin(t) + x_i(0)\cos(t).
 \end{equation}
+
 A particle will follow the trajectory above until it hits a wall, or in other words, until $\textbf{F}\textbf{x} + \textbf{g} = 0$. Let $t_h$ be the time when the particle hits wall $h$, or when $\textbf{F}_h \cdot \textbf{x}(t_h) + \text{g}_h = 0$. It will hit the wall with velocity $\dot{\textbf{x}}(t_h)$ which can be decomposed into:   
 \begin{equation}\label{eq:bounce}
 	\dot{\textbf{x}}(t_h) = proj_{\textbf{n}}\dot{\textbf{x}}(t_h) + proj_{\textbf{F}_h}\dot{\textbf{x}}(t_h)
@@ -110,7 +111,7 @@ By inverting the direction of $proj_{\textbf{n}}\dot{\textbf{x}}(t_h)$, we can o
 	& = -\dot{\textbf{x}}(t_h) + 2\alpha_h\textbf{F}_h
 \end{split}
 \end{equation}
-which can be used as the new velocity 
+which can be used as the new initial velocity ($s_i(0)$) in \eqref{eq:path} for the particle to continue its path.
 
 
 \bibliography{ref}

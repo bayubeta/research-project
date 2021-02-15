@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2020.4.14)  8 FEB 2021 16:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2020.4.14)  10 FEB 2021 11:04
 entering extended mode
 **./rp_report.tex
 (rp_report.tex
@@ -275,7 +275,7 @@ File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 
 
 {C:/Users/Bayu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (2.43333pt too wide) detected at line 112
+Overfull \hbox (2.43333pt too wide) detected at line 113
  []
  []
 
@@ -309,7 +309,7 @@ KTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Bayu/AppData/Local
 /Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Bayu/A
 ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb
 >
-Output written on rp_report.pdf (4 pages, 188355 bytes).
+Output written on rp_report.pdf (4 pages, 188401 bytes).
 PDF statistics:
  84 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
