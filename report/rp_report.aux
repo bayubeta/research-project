@@ -14,18 +14,44 @@
 \newlabel{eq:tmg2}{{2.2}{2}}
 \newlabel{eq:tmg3}{{2.3}{2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Exact Hamiltonian Monte Carlo for Truncated Multivariate Gaussians}{2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Hamiltonian Monte Carlo}{2}\protected@file@percent }
 \newlabel{eq:hml}{{2.4}{2}}
 \newlabel{eq:heqs}{{2.5}{2}}
 \newlabel{eq:can}{{2.6}{2}}
 \newlabel{eq:can2}{{2.7}{2}}
-\bibdata{ref}
-\bibcite{gelfand1992GS}{{1}{1992}{{Gelfand et~al.}}{{Gelfand, Smith, and Lee}}}
-\bibcite{RodrguezYam2004EfficientGS}{{2}{2004}{{Rodr{\'i}guez-Yam et~al.}}{{Rodr{\'i}guez-Yam, Davis, and Scharf}}}
+\citation{pakman2013exact}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Exact HMC for Truncated Multivariate Gaussians}{3}\protected@file@percent }
 \newlabel{eq:hsys}{{2.8}{3}}
 \newlabel{eq:st}{{2.9}{3}}
 \newlabel{eq:heqs2}{{2.10}{3}}
 \newlabel{eq:path}{{2.11}{3}}
 \newlabel{eq:bounce}{{2.12}{3}}
 \newlabel{eq:proj}{{2.13}{3}}
+\citation{Neal2003}
+\citation{murray2010}
+\citation{murray2010}
+\citation{Fagan2016ESSwEP}
+\citation{Fagan2016ESSwEP}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Analytic Elliptical Slice Sampling}{4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Slice Sampling}{4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Elliptical Slice Sampling}{4}\protected@file@percent }
+\newlabel{eq:ESSpost}{{2.15}{4}}
+\newlabel{eq:rule}{{2.16}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}Analytic Elliptical Slice Sampling}{4}\protected@file@percent }
+\newlabel{eq:ellipse}{{2.17}{4}}
+\citation{Fagan2016ESSwEP}
+\citation{pakman2013exact}
+\newlabel{eq:slice}{{2.18}{5}}
+\newlabel{eq:tmgESS}{{2.19}{5}}
+\newlabel{eq:exactslice}{{2.20}{5}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Results}{5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Comparison of generated points from $\mathcal  {N}((4,4)^T,\textbf  {I}_2)$ under the constraints $x_1 \leq x_2 \leq 1.1 x_1$ and $x_1,x_2 \geq 0$ with initial points (2, 2.1). First column: 1000 iterations. Second column: trace plots of the first 400 iterations of $x_2$. Third column: Autocorrelation of $x_2$. In this example we used $T=\pi /2$ for HMC and $J=1$ for ESS. Both methods converges around $x_2=4$ and have relatively low autocorrelation scores.}}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Discussion}{6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Average computation time per sample for both models under different settings for 10-dimensional TMG under the constraints $-1 \leq x_i \leq 1, i=1,...,10$ using CPU. For HMC, T is the maximum travel time. For ESS, J is the number of points sampled in each iteration. The computation time for Exact HMC is overall much faster than Analytic ESS.}}{7}\protected@file@percent }
+\bibdata{ref}
+\bibcite{gelfand1992GS}{{1}{1992}{{Gelfand et~al.}}{{Gelfand, Smith, and Lee}}}
+\bibcite{RodrguezYam2004EfficientGS}{{2}{2004}{{Rodr{\'i}guez-Yam et~al.}}{{Rodr{\'i}guez-Yam, Davis, and Scharf}}}
 \bibcite{pakman2013exact}{{3}{2013}{{Pakman and Paninski}}{{}}}
 \bibcite{Fagan2016ESSwEP}{{4}{2016}{{Fagan et~al.}}{{Fagan, Bhandari, and Cunningham}}}
+\bibcite{murray2010}{{5}{2010}{{Murray et~al.}}{{Murray, Adams, and MacKay}}}
+\bibcite{Neal2003}{{6}{2003}{{Neal}}{{}}}

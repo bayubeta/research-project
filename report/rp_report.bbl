@@ -1,4 +1,4 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{6}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -33,5 +33,18 @@ Francois Fagan, Jalaj Bhandari, and John~P. Cunningham.
   in Artificial Intelligence}, UAI'16, page 172–181, Arlington, Virginia,
   USA, 2016. AUAI Press.
 \newblock ISBN 9780996643115.
+
+\bibitem[Murray et~al.(2010)Murray, Adams, and MacKay]{murray2010}
+Iain Murray, Ryan~Prescott Adams, and David J.~C. MacKay.
+\newblock Elliptical slice sampling.
+\newblock 9:\penalty0 541--548, 2010.
+
+\bibitem[Neal(2003)]{Neal2003}
+Radford~M. Neal.
+\newblock Slice sampling.
+\newblock \emph{The Annals of Statistics}, 31\penalty0 (3):\penalty0 705--741,
+  2003.
+\newblock ISSN 00905364.
+\newblock URL \url{http://www.jstor.org/stable/3448413}.
 
 \end{thebibliography}

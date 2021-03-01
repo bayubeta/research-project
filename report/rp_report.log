@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2020.4.14)  10 FEB 2021 11:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2020.4.14)  1 MAR 2021 02:50
 entering extended mode
 **./rp_report.tex
 (rp_report.tex
@@ -233,7 +233,30 @@ LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
 (Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
 )
-(rp_report.aux)
+("C:\Users\Bayu\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphicx.s
+ty"
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Users\Bayu\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\graphics.s
+ty"
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Users\Bayu\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Users\Bayu\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\graphi
+cs.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+
+("C:\Users\Bayu\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\pdftex
+.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen144
+\Gin@req@width=\dimen145
+) (rp_report.aux)
 \openout1 = `rp_report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
@@ -253,6 +276,28 @@ LaTeX Font Info:    ... okay on input line 12.
 Package scrbase Info: activating english \contentsname on input line 12.
 Package scrbase Info: activating english \listfigurename on input line 12.
 Package scrbase Info: activating english \listtablename on input line 12.
+
+("C:\Users\Bayu\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-pd
+f.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count194
+\scratchdimen=\dimen146
+\scratchbox=\box50
+\nofMPsegments=\count195
+\nofMParguments=\count196
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count197
+\MPscratchDim=\dimen147
+\MPnumerator=\count198
+\makeMPintoPDFobject=\count199
+\everyMPtoPDFconversion=\toks22
+)
+("C:\Users\Bayu\AppData\Local\Programs\MiKTeX 2.9\tex/latex/epstopdf-pkg\epstop
+df-base.sty"
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+)
 LaTeX Font Info:    Trying to load font information for U+msa on input line 15.
 
 
@@ -275,43 +320,53 @@ File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
 
 
 {C:/Users/Bayu/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
-Overfull \hbox (2.43333pt too wide) detected at line 113
+Overfull \hbox (2.43333pt too wide) detected at line 122
  []
  []
 
-(rp_report.bbl [3]) [4] (rp_report.aux) ) 
+[3] [4]
+<fig1.png, id=29, 578.16pt x 433.62pt>
+File: fig1.png Graphic file (type png)
+<use fig1.png>
+Package pdftex.def Info: fig1.png  used on input line 186.
+(pdftex.def)             Requested size: 418.25555pt x 313.68826pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5] [6 <./fig1.png>] [7] (rp_report.bbl) [8] (rp_report.aux) ) 
 Here is how much of TeX's memory you used:
- 5032 strings out of 480903
- 99687 string characters out of 2899173
- 468849 words of memory out of 3000000
- 20892 multiletter control sequences out of 15000+200000
- 544746 words of font info for 72 fonts, out of 3000000 for 9000
+ 5817 strings out of 480903
+ 110993 string characters out of 2899173
+ 470849 words of memory out of 3000000
+ 21647 multiletter control sequences out of 15000+200000
+ 545082 words of font info for 74 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,20n,62p,10625b,270s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\Bayu\AppData\Local\MiKTeX\2
-.9\fonts/pk/ljfour/public/bbm/dpi657\bbm10.pk><C:/Users/Bayu/AppData/Local/Prog
-rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Bayu/AppDat
-a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx8.pfb><C:/Users/
-Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pf
+ <C:\Users\Bayu\A
+ppData\Local\MiKTeX\2.9\fonts/pk/ljfour/public/bbm/dpi657\bbm10.pk><C:/Users/Ba
+yu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
+<C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmbx8.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmex10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/Bayu/AppData/Local/Prog
+rams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Bayu/AppData
+/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users
+/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pf
 b><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmmi10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmmi6.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts
-/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/Bayu/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Bayu/AppD
-ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/User
-s/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pf
-b><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmssbx10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Bayu/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/Bayu/AppData/Local
-/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/Bayu/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msam10.pfb
->
-Output written on rp_report.pdf (4 pages, 188401 bytes).
+cm/cmr12.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publi
+c/amsfonts/cm/cmr8.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmssbx10.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Bayu/AppData/Local/P
+rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Bayu/AppD
+ata/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Use
+rs/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10
+.pfb><C:/Users/Bayu/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/symbols/msam10.pfb>
+Output written on rp_report.pdf (8 pages, 218862 bytes).
 PDF statistics:
- 84 PDF objects out of 1000 (max. 8388607)
+ 100 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
